@@ -79,7 +79,7 @@ pictures and the like.
 
 %package -n		ruby-%name
 Summary:		Ruby binding for %{name}
-Group:			Development/Ruby
+Group:			Development/Other
 Requires:		ruby
 Requires:		ruby-devel
 
