@@ -1,11 +1,8 @@
-%define __libtoolize /bin/true
-%define __cputoolize /bin/true
-
 %define name		obexftp
 %define version		0.22
 %define beta		rc3
 %if %beta
-%define release		%mkrel 0.%beta.1
+%define release		%mkrel 0.%beta.2
 %else
 %define release		%mkrel 1
 %endif
@@ -23,6 +20,7 @@ Source0:		http://triq.net/obexftp/%name-%version-%beta.tar.bz2
 %else
 Source0:		http://triq.net/obexftp/%name-%version.tar.bz2
 %endif
+Patch0:         obexftp-0.22-rc3-python.patch
 Group:			Communications
 URL:			http://triq.net/obex/
 BuildRoot:		%{_tmppath}/%{name}-%{version}-root
@@ -72,9 +70,17 @@ Python binding for obexftp
 
 %prep
 %setup -q
+%if "%{_lib}" != "lib"
+%patch0 -p1 -b .lib64python
+aclocal && libtoolize -c && autoheader && automake -a -c && autoconf
+%endif
 
 %build
-%configure --disable-perl --disable-tcl --disable-ruby
+%configure \
+    --disable-perl \
+    --disable-tcl \
+    --disable-ruby
+
 %make
 
 %install
