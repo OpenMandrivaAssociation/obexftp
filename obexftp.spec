@@ -2,7 +2,7 @@
 %define version		0.22
 %define beta		rc3
 %if %beta
-%define release		%mkrel 0.%beta.2
+%define release		%mkrel 0.%beta.3
 %else
 %define release		%mkrel 1
 %endif
@@ -20,12 +20,15 @@ Source0:		http://triq.net/obexftp/%name-%version-%beta.tar.bz2
 %else
 Source0:		http://triq.net/obexftp/%name-%version.tar.bz2
 %endif
-Patch0:         obexftp-0.22-rc3-python.patch
+Patch0:         	obexftp-0.22-rc3-python.patch
 Group:			Communications
 URL:			http://triq.net/obex/
 BuildRoot:		%{_tmppath}/%{name}-%{version}-root
 Summary:		Access devices via ObexFTP e.g. Siemens mobile equipment
-BuildRequires:		bluez-devel bluez-sdp-devel openobex-devel python-devel
+BuildRequires:		bluez-devel bluez-sdp-devel openobex-devel python-devel 
+
+# Only while we need to patch aclocal and run autoreconf: drop after that
+BuildRequires:		autoconf automake gettext-devel
 
 %description
 The overall goal of this project is to make mobile devices featuring the OBEX
@@ -70,11 +73,12 @@ Python binding for obexftp
 
 %prep
 %setup -q
-%if "%{_lib}" != "lib"
 %patch0 -p1 -b .lib64python
-%endif
 
 %build
+# Required by patch
+FORCE_AUTOCONF_2_5=1 autoreconf
+
 %configure \
     --disable-perl \
     --disable-tcl \
