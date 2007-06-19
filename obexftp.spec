@@ -2,7 +2,7 @@
 %define version		0.22
 %define beta		rc3
 %if %beta
-%define release		%mkrel 0.%beta.3
+%define release		%mkrel 0.%beta.4
 %else
 %define release		%mkrel 1
 %endif
@@ -31,22 +31,22 @@ BuildRequires:		bluez-devel bluez-sdp-devel openobex-devel python-devel
 BuildRequires:		autoconf automake gettext-devel
 
 %description
-The overall goal of this project is to make mobile devices featuring the OBEX
-protocol and adhering to the OBEX FTP standard accessible by an open source
-implementation. The common usage for ObexFTP is to access your mobile phones
-memory to store and retrieve e.g. your phonebook, logos, ringtones, music,
-pictures and alike
+The overall goal of this project is to make mobile devices featuring 
+the OBEX protocol and adhering to the OBEX FTP standard accessible. 
+The most common use for ObexFTP is to access your mobile phones memory 
+to store and retrieve e.g. your phonebook, logos, ringtones, music, 
+pictures and the like.
 
 %package -n		%{libname}
 Summary:		Main library for %{name}
 Group:			System/Libraries
 
 %description -n		%{libname}
-The overall goal of this project is to make mobile devices featuring the OBEX
-protocol and adhering to the OBEX FTP standard accessible by an open source
-implementation. The common usage for ObexFTP is to access your mobile phones
-memory to store and retrieve e.g. your phonebook, logos, ringtones, music,
-pictures and alike
+The overall goal of this project is to make mobile devices featuring 
+the OBEX protocol and adhering to the OBEX FTP standard accessible. 
+The most common use for ObexFTP is to access your mobile phones memory 
+to store and retrieve e.g. your phonebook, logos, ringtones, music, 
+pictures and the like.
 
 %package -n		%{develname}
 Summary:		Headers for developing programs that will use %{name}
@@ -58,18 +58,37 @@ Requires:		%{libname}		= %{version}
 Requires:		libopenobex-devel
 
 %description -n		%{develname}
-The overall goal of this project is to make mobile devices featuring the OBEX
-protocol and adhering to the OBEX FTP standard accessible by an open source
-implementation. The common usage for ObexFTP is to access your mobile phones
-memory to store and retrieve e.g. your phonebook, logos, ringtones, music,
-pictures and alike
+The overall goal of this project is to make mobile devices featuring 
+the OBEX protocol and adhering to the OBEX FTP standard accessible. 
+The most common use for ObexFTP is to access your mobile phones memory 
+to store and retrieve e.g. your phonebook, logos, ringtones, music, 
+pictures and the like.
 
 %package -n		python-%name
-Summary:		Python binding for obexftp
+Summary:		Python binding for %{name}
 Group:			Development/Python
+Requires:		python
+Requires:		python-devel
 
 %description -n         python-%name
-Python binding for obexftp
+The overall goal of this project is to make mobile devices featuring 
+the OBEX protocol and adhering to the OBEX FTP standard accessible. 
+The most common use for ObexFTP is to access your mobile phones memory 
+to store and retrieve e.g. your phonebook, logos, ringtones, music, 
+pictures and the like.
+
+%package -n		ruby-%name
+Summary:		Ruby binding for %{name}
+Group:			Development/Other
+Requires:		ruby
+Requires:		ruby-devel
+
+%description -n         ruby-%name
+The overall goal of this project is to make mobile devices featuring 
+the OBEX protocol and adhering to the OBEX FTP standard accessible. 
+The most common use for ObexFTP is to access your mobile phones memory 
+to store and retrieve e.g. your phonebook, logos, ringtones, music, 
+pictures and the like.
 
 %prep
 %setup -q
@@ -80,9 +99,8 @@ Python binding for obexftp
 FORCE_AUTOCONF_2_5=1 autoreconf
 
 %configure \
-    --disable-perl \
     --disable-tcl \
-    --disable-ruby
+    --disable-perl
 
 %make
 
@@ -115,5 +133,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.a
 
 %files -n python-%name
-%py_platsitedir/%name
-%py_puresitedir/%name
+%defattr(-,root,root)
+
+%{py_platsitedir}/%name
+%{py_puresitedir}/%name
+
+%files -n ruby-%name
+%defattr(-,root,root)
+%{_prefix}/lib/ruby/site_ruby/1.8/i586-linux-gnu/obexftp.so
