@@ -25,7 +25,7 @@ Group:			Communications
 URL:			http://triq.net/obex/
 BuildRoot:		%{_tmppath}/%{name}-%{version}-root
 Summary:		Access devices via ObexFTP e.g. Siemens mobile equipment
-BuildRequires:		bluez-devel bluez-sdp-devel openobex-devel python-devel 
+BuildRequires:		bluez-devel bluez-sdp-devel openobex-devel python-devel ruby ruby-devel
 
 # Only while we need to patch aclocal and run autoreconf: drop after that
 BuildRequires:		autoconf automake gettext-devel
@@ -79,7 +79,7 @@ pictures and the like.
 
 %package -n		ruby-%name
 Summary:		Ruby binding for %{name}
-Group:			Development/Other
+Group:			Development/Ruby
 Requires:		ruby
 Requires:		ruby-devel
 
@@ -140,4 +140,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n ruby-%name
 %defattr(-,root,root)
-%{_prefix}/lib/ruby/site_ruby/1.8/i586-linux-gnu/obexftp.so
+%ruby_sitearchdir/%{name}.so
