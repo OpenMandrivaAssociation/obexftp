@@ -72,7 +72,6 @@ Python binding for obexftp
 %setup -q
 %if "%{_lib}" != "lib"
 %patch0 -p1 -b .lib64python
-aclocal && libtoolize -c && autoheader && automake -a -c && autoconf
 %endif
 
 %build
