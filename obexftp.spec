@@ -2,17 +2,27 @@
 %define __cputoolize /bin/true
 
 %define name		obexftp
-%define version		0.20
+%define version		0.22
+%define beta		rc3
+%if %beta
+%define release		%mkrel 0.%beta.1
+%else
 %define release		%mkrel 1
+%endif
 
 %define major		0
 %define libname		%mklibname %{name} %{major}
+%define develname	%mklibname %{name} -d
 
 Name:			%{name}
 Version:		%{version}
 Release:		%{release}
 License:		GPL
+%if %beta
+Source0:		http://triq.net/obexftp/%name-%version-%beta.tar.bz2
+%else
 Source0:		http://triq.net/obexftp/%name-%version.tar.bz2
+%endif
 Group:			Communications
 URL:			http://triq.net/obex/
 BuildRoot:		%{_tmppath}/%{name}-%{version}-root
@@ -37,15 +47,16 @@ implementation. The common usage for ObexFTP is to access your mobile phones
 memory to store and retrieve e.g. your phonebook, logos, ringtones, music,
 pictures and alike
 
-%package -n		%{libname}-devel
+%package -n		%{develname}
 Summary:		Headers for developing programs that will use %{name}
 Group:			Development/Other
+Obsoletes:		%mklibname %name 0 -d
 Provides:		%{name}-devel		= %{version}-%{release}
 Provides:		lib%{name}-devel	= %{version}-%{release}
 Requires:		%{libname}		= %{version}
 Requires:		libopenobex-devel
 
-%description -n		%{libname}-devel
+%description -n		%{develname}
 The overall goal of this project is to make mobile devices featuring the OBEX
 protocol and adhering to the OBEX FTP standard accessible by an open source
 implementation. The common usage for ObexFTP is to access your mobile phones
@@ -63,7 +74,7 @@ Python binding for obexftp
 %setup -q
 
 %build
-%configure2_5x --disable-perl --disable-tcl
+%configure --disable-perl --disable-tcl --disable-ruby
 %make
 
 %install
@@ -86,7 +97,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %{_libdir}/*.so.*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 
 %{_includedir}/*
