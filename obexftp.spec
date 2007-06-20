@@ -1,8 +1,8 @@
 %define name		obexftp
 %define version		0.22
-%define beta		rc3
+%define beta		rc4
 %if %beta
-%define release		%mkrel 0.%beta.4
+%define release		%mkrel 0.%beta.1
 %else
 %define release		%mkrel 1
 %endif
@@ -12,6 +12,7 @@
 %define develname	%mklibname %{name} -d
 
 Name:			%{name}
+Summary:		Access devices via ObexFTP e.g. Siemens mobile equipment
 Version:		%{version}
 Release:		%{release}
 License:		GPL
@@ -20,15 +21,11 @@ Source0:		http://triq.net/obexftp/%name-%version-%beta.tar.bz2
 %else
 Source0:		http://triq.net/obexftp/%name-%version.tar.bz2
 %endif
-Patch0:         	obexftp-0.22-rc3-python.patch
+Patch0:         	obexftp-0.22-rc4-python.patch
 Group:			Communications
 URL:			http://triq.net/obex/
 BuildRoot:		%{_tmppath}/%{name}-%{version}-root
-Summary:		Access devices via ObexFTP e.g. Siemens mobile equipment
 BuildRequires:		bluez-devel bluez-sdp-devel openobex-devel python-devel ruby ruby-devel
-
-# Only while we need to patch aclocal and run autoreconf: drop after that
-BuildRequires:		autoconf automake gettext-devel
 
 %description
 The overall goal of this project is to make mobile devices featuring 
@@ -92,11 +89,9 @@ pictures and the like.
 
 %prep
 %setup -q
-%patch0 -p1 -b .lib64python
+%patch0 -p1 -b .python
 
 %build
-# Required by patch
-FORCE_AUTOCONF_2_5=1 autoreconf
 
 %configure \
     --disable-tcl \
@@ -137,6 +132,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{py_platsitedir}/%name
 %{py_puresitedir}/%name
+%{py_puresitedir}/%name-%version-py%{pyver}.egg-info
 
 %files -n ruby-%name
 %defattr(-,root,root)
