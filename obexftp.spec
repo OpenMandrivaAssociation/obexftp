@@ -2,7 +2,7 @@
 %define version		0.22
 %define beta		rc4
 %if %beta
-%define release		%mkrel 0.%beta.1
+%define release		%mkrel 0.%beta.2
 %else
 %define release		%mkrel 1
 %endif
