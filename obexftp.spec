@@ -132,7 +132,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{py_platsitedir}/%name
 %{py_puresitedir}/%name
-%{py_puresitedir}/%name-%version-py%{pyver}.egg-info
+%{py_platsitedir}/%name-%version-py%{pyver}.egg-info
 
 %files -n ruby-%name
 %defattr(-,root,root)
