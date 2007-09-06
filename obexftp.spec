@@ -1,8 +1,8 @@
 %define name		obexftp
 %define version		0.22
-%define beta		rc4
+%define beta		rc7
 %if %beta
-%define release		%mkrel 0.%beta.2
+%define release		%mkrel 0.%beta.1
 %else
 %define release		%mkrel 1
 %endif
@@ -15,13 +15,12 @@ Name:			%{name}
 Summary:		Access devices via ObexFTP e.g. Siemens mobile equipment
 Version:		%{version}
 Release:		%{release}
-License:		GPL
+License:		GPLv2+
 %if %beta
 Source0:		http://triq.net/obexftp/%name-%version-%beta.tar.bz2
 %else
 Source0:		http://triq.net/obexftp/%name-%version.tar.bz2
 %endif
-Patch0:         	obexftp-0.22-rc4-python.patch
 Group:			Communications
 URL:			http://triq.net/obex/
 BuildRoot:		%{_tmppath}/%{name}-%{version}-root
@@ -89,7 +88,6 @@ pictures and the like.
 
 %prep
 %setup -q
-%patch0 -p1 -b .python
 
 %build
 
@@ -126,6 +124,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 %{_libdir}/*.la
 %{_libdir}/*.a
+%{_libdir}/pkgconfig/*.pc
 
 %files -n python-%name
 %defattr(-,root,root)
