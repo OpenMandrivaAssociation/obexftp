@@ -23,7 +23,6 @@ Source0:		http://triq.net/obexftp/%name-%version.tar.bz2
 %endif
 Group:			Communications
 URL:			http://triq.net/obex/
-BuildRoot:		%{_tmppath}/%{name}-%{version}-root
 BuildRequires:		bluez-devel bluez-sdp-devel openobex-devel python-devel ruby ruby-devel
 
 %description
