@@ -1,6 +1,7 @@
 %define name		obexftp
 %define version		0.22
-%define beta		rc7
+#release is called uctest, rename it to rc10 for upgrade reason
+%define beta		rc10
 %if %beta
 %define release		%mkrel 0.%beta.1
 %else
@@ -17,7 +18,7 @@ Version:		%{version}
 Release:		%{release}
 License:		GPLv2+
 %if %beta
-Source0:		http://triq.net/obexftp/%name-%version-%beta.tar.bz2
+Source0:		http://triq.net/obexftp/%name-%version-uctest.tar.bz2
 %else
 Source0:		http://triq.net/obexftp/%name-%version.tar.bz2
 %endif
