@@ -1,7 +1,7 @@
 %define name		obexftp
 %define version		0.22
 #release is called uctest, rename it to rc10 for upgrade reason
-%define beta		rc10
+%define beta		0
 %if %beta
 %define release		%mkrel 0.%beta.1
 %else
@@ -92,7 +92,7 @@ pictures and the like.
 
 %build
 
-%configure \
+%configure2_5x \
     --disable-tcl \
     --disable-perl
 
@@ -100,7 +100,7 @@ pictures and the like.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%makeinstall
+%makeinstall_std
 
 %clean
 rm -rf $RPM_BUILD_ROOT
