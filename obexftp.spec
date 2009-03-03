@@ -1,9 +1,9 @@
 %define name		obexftp
-%define version		0.22
+%define version		0.23
 
 #release is called uctest, rename it to rc10 for upgrade reason
 %define beta		0
-%define rel		3
+%define rel		1
 %if %beta
 %define release		%mkrel 0.%{beta}.%{rel}
 %define distname	%{name}-%{version}-uctest.tar.bz2
@@ -13,6 +13,7 @@
 %endif
 
 %define major		0
+%define mcobex_major	1
 %define libname		%mklibname %{name} %{major}
 %define develname	%mklibname %{name} -d
 
@@ -132,7 +133,8 @@ rm -rf %{buildroot}
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/*.so.*
+%{_libdir}/*.so.%{major}*
+%{_libdir}/libmulticobex.so.%{mcobex_major}*
 
 %files -n %{develname}
 %defattr(-,root,root)
