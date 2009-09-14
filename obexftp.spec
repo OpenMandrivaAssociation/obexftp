@@ -3,7 +3,7 @@
 
 #release is called uctest, rename it to rc10 for upgrade reason
 %define beta		0
-%define rel		2
+%define rel		3
 %if %beta
 %define release		%mkrel 0.%{beta}.%{rel}
 %define distname	%{name}-%{version}-uctest.tar.bz2
