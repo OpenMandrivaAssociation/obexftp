@@ -6,7 +6,7 @@
 Name:		obexftp
 Summary:	Access devices via ObexFTP e.g. Siemens mobile equipment
 Version:	0.23
-Release:	8
+Release:	9
 License:	GPLv2+
 Group:		Communications
 URL:		http://dev.zuckschwerdt.org/openobex/wiki/ObexFtp
@@ -18,6 +18,7 @@ Patch0:		obexftp-0.22-include.patch
 Patch1:		obexftp-0.22-literal.patch
 Patch2:		obexftp-0.23-ruby1.9.patch
 Patch3:		obexftp-0.23-sfmt.patch
+Patch4:         obexftp-change-api-new-openobx.patch
 BuildRequires:	pkgconfig(bluez)
 BuildRequires:	pkgconfig(openobex)
 BuildRequires:	python-devel
@@ -89,6 +90,7 @@ pictures and the like.
 %patch1 -p1 -b .literal
 %patch2 -p1 -b .ruby1.9
 %patch3 -p1 -b .sfmt
+%patch4 -p1 -b .api
 
 %build
 %configure2_5x \
