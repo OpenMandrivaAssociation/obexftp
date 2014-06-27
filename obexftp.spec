@@ -8,7 +8,7 @@
 Summary:	Access devices via ObexFTP e.g. Siemens mobile equipment
 Name:		obexftp
 Version:	0.23
-Release:	15
+Release:	16
 License:	GPLv2+
 Group:		Communications
 Url:		http://dev.zuckschwerdt.org/openobex/wiki/ObexFtp
@@ -34,53 +34,93 @@ The most common use for ObexFTP is to access your mobile phones memory
 to store and retrieve e.g. your phonebook, logos, ringtones, music, 
 pictures and the like.
 
-%package -n	%{libname}
+%files
+%doc AUTHORS ChangeLog NEWS README* THANKS TODO
+%{_bindir}/*
+%{_mandir}/man1/*
+
+#----------------------------------------------------------------------------
+
+%package -n %{libname}
 Summary:	Main library for %{name}
 Group:		System/Libraries
 
-%description -n	%{libname}
+%description -n %{libname}
 This package contains a shared library for %{name}.
 
-%package -n	%{libbfb}
+%files -n %{libname}
+%{_libdir}/libobexftp.so.%{major}*
+
+#----------------------------------------------------------------------------
+
+%package -n %{libbfb}
 Summary:	Main library for %{name}
 Group:		System/Libraries
 Conflicts:	%{_lib}obexftp0 < 0.23-10
 
-%description -n	%{libbfb}
+%description -n %{libbfb}
 This package contains a shared library for %{name}.
 
-%package -n	%{libmulticobex}
+%files -n %{libbfb}
+%{_libdir}/libbfb.so.%{major}*
+
+#----------------------------------------------------------------------------
+
+%package -n %{libmulticobex}
 Summary:	Main library for %{name}
 Group:		System/Libraries
 Conflicts:	%{_lib}obexftp0 < 0.23-10
 
-%description -n	%{libmulticobex}
+%description -n %{libmulticobex}
 This package contains a shared library for %{name}.
 
-%package -n	%{devname}
+%files -n %{libmulticobex}
+%{_libdir}/libmulticobex.so.%{mcobex_major}*
+
+#----------------------------------------------------------------------------
+
+%package -n %{devname}
 Summary:	Headers for developing programs that will use %{name}
 Group:		Development/Other
-Provides:	%{name}-devel = %{version}-%{release}
-Requires:	%{libname} = %{version}-%{release}
-Requires:	%{libbfb} = %{version}-%{release}
-Requires:	%{libmulticobex} = %{version}-%{release}
+Provides:	%{name}-devel = %{EVRD}
+Requires:	%{libname} = %{EVRD}
+Requires:	%{libbfb} = %{EVRD}
+Requires:	%{libmulticobex} = %{EVRD}
 
-%description -n	%{devname}
+%description -n %{devname}
 This package includes the development files for %{name}.
 
-%package -n	python-%{name}
+%files -n %{devname}
+%{_includedir}/*
+%{_libdir}/*.so
+%{_libdir}/pkgconfig/*.pc
+
+#----------------------------------------------------------------------------
+
+%package -n python-%{name}
 Summary:	Python binding for %{name}
 Group:		Development/Python
 
-%description -n	python-%{name}
+%description -n python-%{name}
 This package contains the python bindings for %{name}.
 
-%package -n	ruby-%{name}
+%files -n python-%{name}
+%{py_platsitedir}/%{name}
+%{py_platsitedir}/%{name}-%{version}-py%{py_ver}.egg-info
+
+#----------------------------------------------------------------------------
+
+%package -n ruby-%{name}
 Summary:	Ruby binding for %{name}
 Group:		Development/Other
 
-%description -n	ruby-%{name}
+%description -n ruby-%{name}
 This package contains the ruby bindings for %{name}.
+
+%files -n ruby-%{name}
+%{ruby_sitearchdir}/%{name}.so
+
+#----------------------------------------------------------------------------
 
 %prep
 %setup -q
@@ -96,30 +136,4 @@ This package contains the ruby bindings for %{name}.
 
 %install
 %makeinstall_std
-
-%files
-%doc AUTHORS ChangeLog NEWS README* THANKS TODO
-%{_bindir}/*
-%{_mandir}/man1/*
-
-%files -n %{libname}
-%{_libdir}/libobexftp.so.%{major}*
-
-%files -n %{libbfb}
-%{_libdir}/libbfb.so.%{major}*
-
-%files -n %{libmulticobex}
-%{_libdir}/libmulticobex.so.%{mcobex_major}*
-
-%files -n %{devname}
-%{_includedir}/*
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
-
-%files -n python-%{name}
-%{py_platsitedir}/%{name}
-%{py_platsitedir}/%{name}-%version-py%{py_ver}.egg-info
-
-%files -n ruby-%{name}
-%{ruby_sitearchdir}/%{name}.so
 
