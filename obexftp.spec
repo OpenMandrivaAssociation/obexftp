@@ -7,25 +7,24 @@
 
 Summary:	Access devices via ObexFTP e.g. Siemens mobile equipment
 Name:		obexftp
-Version:	0.23
-Release:	17
+Version:	0.24
+Release:	1
 License:	GPLv2+
 Group:		Communications
 Url:		http://dev.zuckschwerdt.org/openobex/wiki/ObexFtp
-Source0:	http://triq.net/obexftp/%{name}-%{version}.tar.bz2
-# From Gentoo bug #250210:	fix a missing include that breaks build -
-# AdamW 2009/01
-Patch0:		obexftp-0.22-include.patch
-# Fix a string literal error - AdamW 2009/01
-Patch1:		obexftp-0.22-literal.patch
-Patch2:		obexftp-0.23-ruby1.9.patch
-Patch3:		obexftp-0.23-sfmt.patch
-Patch4:		obexftp-change-api-new-openobx.patch
+Source0:	http://triq.net/obexftp/%{name}-%{version}-Source.tar.gz
+Patch1:		obexftp-0.24-link.patch
+Patch2:		obexftp-0.24-fix-absurd-install-path.patch
+Patch3:		obexftp-pkgconfig_requires.patch
 BuildRequires:	ruby
 BuildRequires:	ruby-devel
 BuildRequires:	pkgconfig(bluez)
 BuildRequires:	pkgconfig(openobex)
-BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(python3)
+BuildRequires:	xmlto
+BuildRequires:	cmake
+BuilDrequires:	asciitodoc
+BuildRequires:	swig
 
 %description
 The overall goal of this project is to make mobile devices featuring 
@@ -105,8 +104,7 @@ Group:		Development/Python
 This package contains the python bindings for %{name}.
 
 %files -n python-%{name}
-%{py_platsitedir}/%{name}
-%{py_platsitedir}/%{name}-%{version}-py%{py_ver}.egg-info
+%{py_platsitedir}/*
 
 #----------------------------------------------------------------------------
 
@@ -118,22 +116,19 @@ Group:		Development/Other
 This package contains the ruby bindings for %{name}.
 
 %files -n ruby-%{name}
-%{ruby_sitearchdir}/%{name}.so
+%{ruby_vendorarchdir}/%{name}.so
 
 #----------------------------------------------------------------------------
 
 %prep
-%setup -q
+%setup -qn %{name}-%{version}-Source
 %apply_patches
 
 %build
-%configure2_5x \
-	--disable-static \
-	--disable-tcl \
-	--disable-perl
-
-%make
+%cmake -DENABLE_PERL=OFF -DENABLE_TCL=OFF
+%make all doc
 
 %install
+pushd build
 %makeinstall_std
 

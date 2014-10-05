@@ -1,0 +1,11 @@
+--- obexftp-0.24-Source/multicobex/CMakeLists.txt.orig  2014-10-05 18:41:58.112603160 +0100
++++ obexftp-0.24-Source/multicobex/CMakeLists.txt       2014-10-05 18:40:57.381608151 +0100
+@@ -22,7 +22,7 @@
+ set_property ( TARGET multicobex PROPERTY PUBLIC_HEADER ${multicobex_PUBLIC_HEADERS} )
+ 
+ target_link_libraries ( multicobex
+-  bfb
++  bfb -lopenobex
+ )
+ 
+ install ( TARGETS multicobex
