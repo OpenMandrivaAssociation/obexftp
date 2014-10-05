@@ -23,7 +23,7 @@ BuildRequires:	pkgconfig(openobex)
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	xmlto
 BuildRequires:	cmake
-BuilDrequires:	asciitodoc
+BuilDrequires:	asciidoc
 BuildRequires:	swig
 
 %description
