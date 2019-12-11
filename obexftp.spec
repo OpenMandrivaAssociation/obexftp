@@ -8,7 +8,7 @@
 Summary:	Access devices via ObexFTP e.g. Siemens mobile equipment
 Name:		obexftp
 Version:	0.24
-Release:	4
+Release:	5
 License:	GPLv2+
 Group:		Communications
 Url:		http://dev.zuckschwerdt.org/openobex/wiki/ObexFtp
