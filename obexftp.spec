@@ -122,7 +122,7 @@ This package contains the ruby bindings for %{name}.
 
 %prep
 %setup -qn %{name}-%{version}-Source
-%apply_patches
+%autopatch -p1
 
 %build
 %cmake -DENABLE_PERL=OFF -DENABLE_TCL=OFF
