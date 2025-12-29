@@ -16,6 +16,7 @@ Source0:	http://triq.net/obexftp/%{name}-%{version}-Source.tar.gz
 Patch1:		obexftp-0.24-link.patch
 Patch2:		obexftp-0.24-fix-absurd-install-path.patch
 Patch3:		obexftp-pkgconfig_requires.patch
+BuildRequires:  make
 BuildRequires:	ruby
 BuildRequires:	ruby-devel
 BuildRequires:	pkgconfig(bluez)
